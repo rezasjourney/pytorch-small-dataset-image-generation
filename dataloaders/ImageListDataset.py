@@ -10,7 +10,14 @@ def pil_loader(path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, 'rb') as f:
         img = Image.open(f)
-        return img.convert('RGB')
+
+        if img.mode == 'RGBA':
+            png = img
+            img = Image.new("RGB", png.size, (255, 255, 255))
+            img.paste(png, mask=png.split()[3]) # 3 is the alpha channel
+            return img
+        else:
+            return img.convert('RGB')
 
 class ImageListDataset(Dataset):
     def __init__(self, path_label_list, img_root=None,
