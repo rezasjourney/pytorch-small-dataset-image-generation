@@ -17,7 +17,8 @@ def pil_loader(path):
             img.paste(png, mask=png.split()[3]) # 3 is the alpha channel
             return img
         else:
-            return img.convert('RGB')
+            # return img.convert('RGB')
+            return img.convert('L') # remove me later and uncomment line above
 
 class ImageListDataset(Dataset):
     def __init__(self, path_label_list, img_root=None,
