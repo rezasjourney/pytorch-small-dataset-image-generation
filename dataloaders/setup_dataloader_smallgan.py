@@ -3,13 +3,13 @@ from .ImageListDataset import ImageListDataset
 from torchvision import transforms
 from torch.utils.data import  DataLoader
 
-def setup_dataloader(name,h=128,w=128,batch_size=4,num_workers=4):
+def setup_dataloader(name,h=128,w=128,batch_size=4,num_workers=4,ext='png'):
     '''
     instead of setting up dataloader that read raw image from file, 
     let's use store all images on cpu memmory
     because this is for small dataset
     '''
-    img_path_list = glob.glob(f"./data/{name}/*.png")
+    img_path_list = glob.glob(f"./data/{name}/*.{ext}")
         
     assert len(img_path_list) > 0
 
